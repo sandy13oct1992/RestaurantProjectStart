@@ -50,7 +50,7 @@ const HeaderCartButton = (props) => {
     };
   }, [items]);
 
-  // Rendering the cart button with icon, text, and badge
+  // Rendering the cart button with icon, text, and badge(need to know that how context api had been used)
   return (
     <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
