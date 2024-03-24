@@ -32,7 +32,7 @@ const Cart = (props) => {
     cartCtx.addItem({ ...item, amount: 1 });
   };
 
-  // Creating a list of cart items using the 'map' method
+  // Creating a list of cart items using the 'map' method..
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
