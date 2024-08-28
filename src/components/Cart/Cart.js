@@ -1,5 +1,6 @@
 // Importing the 'useContext' hook from the 'react' library
-import { useContext } from "react";
+import { useContext,useState } from "react";
+import OrderForm from "./OrderForm.js";
 
 // Importing the 'Modal' and 'CartItem' components from their respective files
 import Modal from "../UI/Modal";
@@ -9,18 +10,37 @@ import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 
 // Importing the 'CartContext' from the 'cart-context' store
-import CartContext from "../Store/Cart-Context.js";
+import CartContext from "../Store/CartContext.js";
 
 // Defining the 'Cart' functional component
 const Cart = (props) => {
   // Accessing the cart context using 'useContext'
   const cartCtx = useContext(CartContext);
 
+  // const incrementQuantity = (item) => {
+  //   // updateCartItemQuantity(item.id, item.quantity + 1);
+  //   const newQuantity = item.quantity + 1;
+  //   updateCartItemQuantity(item.id, newQuantity);
+  //   // updateQuantityInDatabase(item.id, newQuantity);
+  // };
+
+  // const decrementQuantity = (item) => {
+  //   // if (item.quantity > 1) {
+  //   //   updateCartItemQuantity(item.id, item.quantity - 1);
+  //   if (item.quantity > 1) {
+  //     const newQuantity = item.quantity - 1;
+  //     updateCartItemQuantity(item.id, newQuantity);
+  //     // updateQuantityInDatabase(item.id, newQuantity);
+  //   }
+  // }
+
   // Calculating the total cart amount and formatting it as a string
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
 
   // Checking if there are items in the cart
   const hasItems = cartCtx.items.length > 0;
+
+  const [isOrderFormVisible, setIsOrderFormVisible] = useState(false);
 
   // Handler function to remove an item from the cart
   const cartItemRemoveHandler = (id) => {
@@ -32,6 +52,13 @@ const Cart = (props) => {
     cartCtx.addItem({ ...item, amount: 1 });
   };
 
+  const orderHandler = () => {
+    setIsOrderFormVisible(true); // Show the order form when "Order" button is clicked
+  };
+
+  const closeOrderFormHandler = () => {
+    setIsOrderFormVisible(false); // Hide the order form
+  };
   // Creating a list of cart items using the 'map' method..
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -65,8 +92,9 @@ const Cart = (props) => {
           Close
         </button>
         {/* Conditional rendering: Only display the 'Order' button if there are items in the cart */}
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && <button className={classes.button} onClick={orderHandler}>Order</button>}
       </div>
+      {isOrderFormVisible && <OrderForm onClose={closeOrderFormHandler} />} {/* Conditionally render the OrderForm */}
     </Modal>
   );
 };

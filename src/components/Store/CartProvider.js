@@ -1,9 +1,39 @@
 // Importing the 'useReducer' hook from 'react'
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 // Importing the 'CartContext' from './cart-context'
-import CartContext from './Cart-Context.js';
+import CartContext from './CartContext.js';
+import { useContext } from 'react';
 
+// const CartProvider = (props) => {
+//   const [cartData, setCartData] = useState([]);
+
+//   const updateCartItemQuantity = (id, quantity) => {
+//     setCartData((prevCartData) => {
+//       return prevCartData.map((item) => 
+//         item.id === id ? { ...item, quantity } : item
+//       );
+//     });
+//   };
+
+//   const addItemToCartHandler = (item) => {
+//     // updateCartItemQuantity(item.id, item.quantity + 1);
+//     const newQuantity = item.quantity + 1;
+//     updateCartItemQuantity(item.id, newQuantity);
+//     // updateQuantityInDatabase(item.id, newQuantity);
+//   };
+
+//   const removeItemFromCartHandler = (item) => {
+//     // if (item.quantity > 1) {
+//     //   updateCartItemQuantity(item.id, item.quantity - 1);
+//     if (item.quantity > 0) {
+//       const newQuantity = item.quantity - 1;
+//       updateCartItemQuantity(item.id, newQuantity);
+//       // updateQuantityInDatabase(item.id, newQuantity);
+//     }
+//   }
+
+// }
 // Defining the default state for the cart
 const defaultCartState = {
   items: [],          // An array to store cart items
@@ -84,7 +114,12 @@ const CartProvider = (props) => {
     cartReducer,
     defaultCartState
   );
+//  const [isLoggedIn, setIsLoggedIn] = useContext(false);
 
+ 
+
+
+ 
   // Handler function to add an item to the cart
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: 'ADD', item: item });
@@ -97,7 +132,10 @@ const CartProvider = (props) => {
 
   // Creating a cart context object
   const cartContext = {
+    // isLoggedIn:isLoggedIn,
+    // setIsLoggedIn:setIsLoggedIn,
     items: cartState.items,
+    // items:cartData,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
@@ -109,7 +147,8 @@ const CartProvider = (props) => {
       {props.children}
     </CartContext.Provider>
   );
-};
+}
 
 // Exporting the 'CartProvider' component for use in other parts of the application
 export default CartProvider;
+

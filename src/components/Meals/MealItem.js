@@ -8,7 +8,7 @@ import MealItemForm from './MealItemForm';
 import classes from './MealItem.module.css';
 
 // Importing the 'CartContext' from the store
-import CartContext from '../Store/Cart-Context';
+import CartContext from '../Store/CartContext';
 
 // Defining the 'MealItem' functional component with props
 const MealItem = (props) => {
